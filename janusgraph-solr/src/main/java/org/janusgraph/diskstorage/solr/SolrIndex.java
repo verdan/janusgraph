@@ -660,6 +660,7 @@ public class SolrIndex implements IndexProvider {
     private <E> Stream<E> executeQuery(Integer limit, int offset, String collection, SolrQuery solrQuery,
                                        Function<SolrDocument, E> function) throws PermanentBackendException {
         try {
+            logger.info("(SolrIndex.executeQuery) Executing SOLR query [{}]", solrQuery.getQuery());
             final SolrResultIterator<E> resultIterator = new SolrResultIterator<>(solrClient, limit, offset,
                 solrQuery.getRows(), collection, solrQuery, function);
             return StreamSupport.stream(Spliterators.spliteratorUnknownSize(resultIterator, Spliterator.ORDERED),

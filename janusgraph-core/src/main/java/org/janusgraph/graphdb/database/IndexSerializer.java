@@ -658,6 +658,7 @@ public class IndexSerializer {
         final RawQuery rawQuery = new RawQuery(index.getStoreName(),queryStr,orders,query.getParameters());
         if (query.hasLimit()) rawQuery.setLimit(query.getLimit());
         rawQuery.setOffset(query.getOffset());
+        log.info("(IndexSerializer.executeQuery) Building Query [{}]", query.getQuery());
         return backendTx.rawQuery(index.getBackingIndexName(), rawQuery).map(result ->  new RawQuery.Result(string2ElementId(result.getResult()), result.getScore()));
     }
 
