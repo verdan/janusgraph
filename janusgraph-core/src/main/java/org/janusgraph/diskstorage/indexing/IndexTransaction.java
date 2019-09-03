@@ -21,6 +21,8 @@ import org.janusgraph.diskstorage.util.BackendOperation;
 import org.janusgraph.graphdb.database.idhandling.VariableLong;
 import org.janusgraph.graphdb.database.serialize.DataOutput;
 import org.janusgraph.graphdb.util.StreamIterable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.HashMap;
@@ -38,6 +40,8 @@ import java.util.stream.Stream;
  */
 
 public class IndexTransaction implements BaseTransaction, LoggableTransaction {
+    private static final Logger log =
+        LoggerFactory.getLogger(IndexTransaction.class);
 
     private static final int DEFAULT_OUTER_MAP_SIZE = 3;
     private static final int DEFAULT_INNER_MAP_SIZE = 5;
@@ -117,6 +121,7 @@ public class IndexTransaction implements BaseTransaction, LoggableTransaction {
     }
 
     public Stream<RawQuery.Result<String>> queryStream(RawQuery query) throws BackendException {
+        log.info("(IndexTransaction.queryStream) Query Stream [{}]", index.getClass().getCanonicalName());
         return index.query(query, keyInformation,indexTx);
     }
 
