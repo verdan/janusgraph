@@ -425,7 +425,7 @@ public class BackendTransaction implements LoggableTransaction {
 
     public Stream<RawQuery.Result<String>> rawQuery(final String index, final RawQuery query) {
         final IndexTransaction indexTx = getIndexTransaction(index);
-        log.info("(BackendTransaction.rawQuery) Building Raw Query [{}], Index: {} | IndexTX", query.getQuery(), index, indexTx);
+        log.info("(BackendTransaction.rawQuery) Building Raw Query [{}], Index: {} | IndexTX: {}", query.getQuery(), index, indexTx);
         return executeRead(new Callable<Stream<RawQuery.Result<String>>>() {
             @Override
             public Stream<RawQuery.Result<String>> call() throws Exception {
