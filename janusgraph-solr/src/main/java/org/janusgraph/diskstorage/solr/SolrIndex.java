@@ -697,6 +697,7 @@ public class SolrIndex implements IndexProvider {
                 solrQuery.setParam(parameter.key(), (String) parameter.value());
             }
         }
+        logger.info("(SolrIndex.runCommonQuery) Executing Common Query [{}]", solrQuery.getQuery());
         return solrQuery;
     }
 
@@ -705,6 +706,7 @@ public class SolrIndex implements IndexProvider {
                                                  BaseTransaction tx) throws BackendException {
         final String collection = query.getStore();
         final String keyIdField = getKeyFieldId(collection);
+        logger.info("(SolrIndex.query) Executing SOLR query [{}] | Field: {}", query.getQuery(), keyIdField);
         return executeQuery(query.hasLimit() ? query.getLimit() : null, query.getOffset(), collection,
             runCommonQuery(query, information, tx, collection, keyIdField), doc -> {
             final double score = Double.parseDouble(doc.getFieldValue("score").toString());
